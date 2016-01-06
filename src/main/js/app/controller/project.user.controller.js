@@ -29,7 +29,7 @@ define(["dhisId", "properties"], function(dhisId, properties) {
 
             $scope.userNamePlaceHolder = _.isEmpty(userNamePrefix) ? "" : $scope.resourceBundle.usernamePrefixValidation + " " + userNamePrefix;
 
-            $scope.userRoles = allRoles[orgUnitType];
+            $scope.userRoles = allRoles["Project"];
             $scope.form = {};
             userRepository.getAllUsernames()
                 .then(setExistingUserNames)

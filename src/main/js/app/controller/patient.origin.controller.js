@@ -77,6 +77,7 @@ define(["lodash", "moment", "dhisId", "orgUnitMapper"], function(_, moment, dhis
                 };
 
                 var isLinelistService = function(orgUnit) {
+                    return true;
                     return getBooleanAttributeValue(orgUnit.attributeValues, "isLineListService");
                 };
 

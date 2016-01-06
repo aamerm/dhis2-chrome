@@ -6,7 +6,7 @@ define(["lodash", "datasetTransformer", "moment"], function(_, datasetTransforme
             var store = db.objectStore("dataSets");
             return store.getAll().then(function(dsFromDb) {
                 datasets = _.map(dsFromDb, datasetTransformer.mapDatasetForView);
-                datasets = _.filter(datasets, "isNewDataModel");
+//                datasets = _.filter(datasets, "isNewDataModel");
                 return datasets;
             });
         };
@@ -16,7 +16,7 @@ define(["lodash", "datasetTransformer", "moment"], function(_, datasetTransforme
             var query = db.queryBuilder().$in(orgUnitIds).$index("by_organisationUnit").compile();
             return store.each(query).then(function(dsFromDb) {
                 datasets = _.map(dsFromDb, datasetTransformer.mapDatasetForView);
-                datasets = _.filter(datasets, "isNewDataModel");
+//                datasets = _.filter(datasets, "isNewDataModel");
                 datasets = _.uniq(_.sortBy(datasets, 'id'), true, 'id');
                 return datasets;
             });
@@ -26,6 +26,7 @@ define(["lodash", "datasetTransformer", "moment"], function(_, datasetTransforme
             var groupStore = db.objectStore("dataElementGroups");
             return groupStore.getAll().then(function(dataElementGroups) {
                 return _.filter(dataElementGroups, function(group) {
+                    return true;
                     return _.endsWith(group.code, "module_creation");
                 });
             });

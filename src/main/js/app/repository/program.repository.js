@@ -19,6 +19,7 @@ define(["lodash", "moment"], function(_, moment) {
             var store = db.objectStore("programs");
             return store.getAll().then(function(programs) {
                 return _.filter(programs, function(p) {
+                    return true;
                     return getBooleanAttributeValue(p.attributeValues, "isNewDataModel");
                 });
             });

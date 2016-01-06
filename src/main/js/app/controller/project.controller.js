@@ -88,6 +88,7 @@ define(["moment", "orgUnitMapper", "properties", "lodash"], function(moment, org
                     return;
 
                 var partitionedModules = _.partition(modules, function(module) {
+                    return true;
                     return _.any(module.attributeValues, {
                         "attribute": {
                             "code": "isLineListService"

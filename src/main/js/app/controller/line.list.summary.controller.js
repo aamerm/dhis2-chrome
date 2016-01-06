@@ -211,6 +211,7 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
             var publishToDhis = function() {
 
                 var deleteApprovals = function() {
+                    console.log("in delete approv");
                     return $hustle.publish({
                         "data": periodsAndOrgUnits,
                         "type": "deleteApprovals",
@@ -220,6 +221,7 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
                 };
 
                 var uploadEvents = function() {
+                    console.log("in upload eve");
                     return $hustle.publish({
                         "type": "uploadProgramEvents",
                         "data": _.pluck(submitableEvents, "event"),
@@ -229,6 +231,7 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
                 };
 
                 var uploadCompletion = function() {
+                    console.log("in upload complet");
                     return $hustle.publish({
                         "data": periodsAndOrgUnits,
                         "type": "uploadCompletionData",
@@ -238,6 +241,7 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
                 };
 
                 var uploadApproval = function() {
+                    console.log("in upload approv");
                     return $hustle.publish({
                         "data": periodsAndOrgUnits,
                         "type": "uploadApprovalData",
@@ -364,8 +368,9 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
             };
 
             var loadOriginOrgUnits = function() {
-                return orgUnitRepository.findAllByParent($scope.selectedModuleId).then(function(data) {
-                    $scope.originOrgUnits = data;
+                return orgUnitRepository.get($scope.selectedModuleId).then(function(data) {
+                    console.log(data,"this should be defined");
+                    $scope.originOrgUnits = [data];
                 });
             };
 
@@ -390,12 +395,7 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
 
             var setUpProjectAutoApprovedFlag = function() {
                 return orgUnitRepository.getParentProject($scope.selectedModuleId).then(function(orgUnit) {
-                    $scope.projectIsAutoApproved = _.any(orgUnit.attributeValues, {
-                        'attribute': {
-                            'code': "autoApprove"
-                        },
-                        "value": "true"
-                    });
+                    $scope.projectIsAutoApproved = true;
                 });
             };
 

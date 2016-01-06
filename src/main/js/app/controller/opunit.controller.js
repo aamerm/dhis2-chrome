@@ -157,6 +157,7 @@ define(["lodash", "dhisId", "moment", "orgUnitMapper"], function(_, dhisId, mome
                     return;
 
                 var partitionedModules = _.partition(modules, function(module) {
+                    return true;
                     return _.any(module.attributeValues, {
                         "attribute": {
                             "code": "isLineListService"

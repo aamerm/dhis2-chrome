@@ -74,12 +74,7 @@ define(["chromeUtils", "lodash"], function(chromeUtils, _) {
                         return {
                             "id": module.id,
                             "displayName": module.parent.name + ' - ' + module.name,
-                            "isLineListService": _.any(module.attributeValues, {
-                                "attribute": {
-                                    "code": "isLineListService"
-                                },
-                                "value": "true"
-                            })
+                            "isLineListService": true
                         };
                     });
                 });

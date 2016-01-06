@@ -353,11 +353,11 @@ define(["lodash", "dataValuesMapper", "orgUnitMapper", "moment", "properties"], 
             var loadAssociatedOrgUnitsAndPrograms = function() {
                 return orgUnitRepository.findAllByParent([$scope.selectedModule.id]).then(function(originOrgUnits) {
                     $scope.moduleAndOriginOrgUnitIds = _.pluck(_.flattenDeep([$scope.selectedModule, originOrgUnits]), "id");
-                    return programRepository.getProgramForOrgUnit(originOrgUnits[0].id).then(function(program) {
-                        if (program)
-                            $scope.associatedProgramId = program.id;
-                    });
-                });
+//                    return programRepository.getProgramForOrgUnit(originOrgUnits[0].id).then(function(program) {
+//                        if (program)
+//                            $scope.associatedProgramId = program.id;
+//                    });
+                }   );
             };
 
             var loadExcludedDataElements = function() {

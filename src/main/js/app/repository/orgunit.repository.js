@@ -20,6 +20,7 @@ define(["moment", "lodashUtils"], function(moment, _) {
                 return attr && attr.value === 'true';
             };
             return _.filter(orgUnits, function(ou) {
+                return true;
                 return getBooleanAttributeValue(ou.attributeValues, "isNewDataModel") && !getBooleanAttributeValue(ou.attributeValues, "isDisabled");
             });
         };
@@ -79,9 +80,8 @@ define(["moment", "lodashUtils"], function(moment, _) {
             parentIds = _.isArray(parentIds) ? parentIds : [parentIds];
             var store = db.objectStore("organisationUnits");
             var query = db.queryBuilder().$in(parentIds).$index("by_parent").compile();
-
-            if (rejectDisabled)
-                return store.each(query).then(rejectCurrentAndDisabled);
+//            if (rejectDisabled)
+//                return store.each(query).then(rejectCurrentAndDisabled);
 
             return store.each(query);
         };
@@ -114,6 +114,7 @@ define(["moment", "lodashUtils"], function(moment, _) {
         var getAllProjects = function() {
             var filterProjects = function(orgUnits) {
                 return _.filter(orgUnits, function(orgUnit) {
+                    return true;
                     return isOfType(orgUnit, "Project");
                 });
             };
@@ -125,6 +126,7 @@ define(["moment", "lodashUtils"], function(moment, _) {
             var store = db.objectStore("organisationUnitLevels");
             return store.getAll().then(function(orgUnitLevels) {
                 var orgUnitLevel = _.find(orgUnitLevels, function(level) {
+                    return true;
                     return level.name === type;
                 });
                 return orgUnitLevel && orgUnitLevel.level;
@@ -141,11 +143,11 @@ define(["moment", "lodashUtils"], function(moment, _) {
 
         var getParentProject = function(orgUnitId) {
             return get(orgUnitId).then(function(orgUnit) {
-                if (isOfType(orgUnit, 'Project')) {
+//                if (isOfType(orgUnit, 'Project')) {
                     return orgUnit;
-                } else {
-                    return getParentProject(orgUnit.parent.id);
-                }
+//                } else {
+//                    return getParentProject(orgUnit.parent.id);
+//                }
             });
         };
 
@@ -224,6 +226,7 @@ define(["moment", "lodashUtils"], function(moment, _) {
         var getChildrenOfTypeInOrgUnits = function(orgUnitIds, requestedType) {
             var partitionRequestedOrgUnits = function(orgunits) {
                 return _.partition(orgunits, function(orgUnit) {
+                    return true;
                     return isOfType(orgUnit, requestedType);
                 });
             };

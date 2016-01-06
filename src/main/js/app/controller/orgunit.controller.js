@@ -96,21 +96,22 @@ define(["toTree", "lodash", "moment", "properties"], function(toTree, _, moment,
                         "code": "isLineListService"
                     }
                 });
+                return true;
                 return attr && attr.value == "true";
             };
 
-            if (!_.isEmpty(orgUnit)) {
-                var type = _.find(orgUnit.attributeValues, {
-                    "attribute": {
-                        "code": "Type"
-                    }
-                }).value;
+//            if (!_.isEmpty(orgUnit)) {
+//                var type = _.find(orgUnit.attributeValues, {
+//                    "attribute": {
+//                        "code": "Type"
+//                    }
+//                }).value;
 
-                if (type == "Module") {
-                    type = isLineListService() ? "LineListModule" : "Module";
-                }
-                return type;
-            }
+//                if (type == "Module") {
+//                    type = isLineListService() ? "LineListModule" : "Module";
+//                }
+                return "Project";
+//            }
         };
 
         $scope.onOrgUnitSelect = function(orgUnit) {

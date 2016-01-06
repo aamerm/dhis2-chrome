@@ -61,10 +61,9 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
                 return _.map(sections.programStageDataElements, function(psde) {
                     var type = getType(psde.dataElement);
                     var value = formatValue($scope.dataValues[psde.dataElement.id], type);
-
-                    if ($scope.isEventDateSubstitute(psde.dataElement)) {
-                        eventDate = value;
-                    }
+                    //if ($scope.isEventDateSubstitute(psde.dataElement)) {
+                    //    eventDate = value;
+                    //}
                     if (psde.compulsory) {
                         if (type === "NUMBER") {
                             compulsoryFieldsPresent = isNaN(value) || value === null ? false : compulsoryFieldsPresent;
@@ -81,7 +80,7 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
 
             return {
                 dataValues: dataValuesList,
-                eventDate: eventDate,
+                eventDate: moment().set('millisecond', 0).set('second', 0).toDate(),
                 compulsoryFieldsPresent: compulsoryFieldsPresent
             };
         };
@@ -170,7 +169,10 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
 
             var loadOriginOrgUnits = function() {
                 return orgUnitRepository.findAllByParent($scope.selectedModuleId).then(function(originOrgUnits) {
-                    $scope.originOrgUnits = originOrgUnits;
+                    console.log(originOrgUnits,"originorgunitsssssssssssss");
+                    orgUnitRepository.get($routeParams.module).then(function(module){
+                        $scope.originOrgUnits = [module];
+                    })
                 });
             };
 
@@ -194,7 +196,7 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
                 };
 
                 var getProgram = function(excludedDataElements) {
-                    return programRepository.getProgramForOrgUnit($scope.originOrgUnits[0].id).then(function(program) {
+                    return programRepository.getProgramForOrgUnit($scope.selectedModuleId).then(function(program) {
                         return programRepository.get(program.id, excludedDataElements).then(function(program) {
                             _.each(program.programStages, function(stage) {
                                 _.each(stage.programStageSections, function(section) {

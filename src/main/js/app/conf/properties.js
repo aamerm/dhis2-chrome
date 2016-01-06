@@ -24,7 +24,7 @@ define(['lodash', 'overrides'], function(_, overrides) {
         },
         "dhis": {
             "url": url,
-            "authHeader": "Basic c2VydmljZS5jaHJvbWU6UGFzc3dvcmQx"
+            "authHeader": "Basic YWRtaW46ZGlzdHJpY3Q="
         },
         "queue": {
             "maxretries": 5,
