@@ -14,8 +14,8 @@ define(['lodash', 'overrides'], function(_, overrides) {
         },
         "projectDataSync": {
             "intervalInMinutes": 720,
-            "numWeeksToSync": 12,
-            "numWeeksToSyncOnFirstLogIn": 12
+            "numWeeksToSync": 28,
+            "numWeeksToSyncOnFirstLogIn": 28
         },
         "dhisPing": {
             "url": url + "/favicon.ico",
