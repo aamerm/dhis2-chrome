@@ -1,6 +1,6 @@
 define(["lodash", "moment"],
     function(_, moment) {
-        return function($scope, $routeParams, $q, $location, $rootScope, orgUnitRepository) {
+        return function($scope, $routeParams, $q, $location, $rootScope, orgUnitRepository, datasetRepository) {
 
             var deregisterWeekModulerWatcher = $scope.$watchCollection('[week, currentModule]', function() {
                 $scope.errorMessage = undefined;
@@ -45,25 +45,44 @@ define(["lodash", "moment"],
             };
 
             var getFilteredModulesWithDisplayNames = function(modules) {
-                if ($scope.dataType == "aggregate")
-                    modules = getAggregateModules(modules);
-
                 return _.map(modules, function(module) {
-                    module.displayName = module.parent.name + ' - ' + module.name;
+                    module.displayName = module.name;
                     return module;
                 });
             };
 
-            var setAvailableModules = function() {
-                if ($rootScope.currentUser && $rootScope.currentUser.selectedProject) {
-                    return orgUnitRepository.getAllModulesInOrgUnits($rootScope.currentUser.selectedProject.id).then(function(modules) {
-                        $scope.modules = getFilteredModulesWithDisplayNames(modules);
-                    });
-                } else {
-                    $scope.modules = [];
-                    return $q.when({});
+            var setAvailableModules = function () {
+
+                var getOrgUnitIdsOfUserWithDatasets = function(user){
+                    numberOfDatasetsInEachOrgUnit = []
+                    orgUnitIds = _.pluck(user.organisationUnits,"id")
+                    promisez = _.map(orgUnitIds,function(orgUnitId){
+                        return datasetRepository.findAllForOrgUnits([orgUnitId]).then(
+                            function(datasets){
+                                numberOfDatasetsInEachOrgUnit.push(datasets.length)
+                            }
+                        )
+                    })
+                    return $q.all(promisez).then(function(){
+                        return _.filter(orgUnitIds, function(orgUnitId, index){
+                            return numberOfDatasetsInEachOrgUnit[index] > 0
+                        })
+                    })
+
                 }
-            };
+
+                if ($rootScope.currentUser)
+                    getOrgUnitIdsOfUserWithDatasets($scope.currentUser)
+                        .then(function(OrgUnitIds){
+                            orgUnitRepository.findAll(OrgUnitIds)
+                            .then(function(orgUnits){
+                                $scope.modules = getFilteredModulesWithDisplayNames(orgUnits)
+                        })
+                    })
+                else
+                    $scope.modules = [];
+                return $q.when({});
+            }
 
             var deregisterSelectedProjectListener = $scope.$on('selectedProjectUpdated', init);
 
