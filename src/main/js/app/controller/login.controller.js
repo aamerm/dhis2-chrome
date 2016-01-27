@@ -131,7 +131,7 @@ define(["md5", "lodash"], function(md5, _) {
             if ($rootScope.hasRoles(['Superadmin', 'Superuser']))
                 $location.path("/orgUnits");
             else
-                $location.path("/dashboard");
+                $location.path("/aggregate-data-entry");
         };
 
         $scope.login = function() {
