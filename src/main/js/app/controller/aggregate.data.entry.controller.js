@@ -95,12 +95,19 @@ define(["lodash", "dataValuesMapper", "orgUnitMapper", "moment", "properties"], 
             $scope.dataValues[orgUnit][elementId][option].value = $scope.dataValues[orgUnit][elementId][option].formula;
         };
 
-        $scope.getDatasetState = function(id, isFirst) {
-            if (isFirst && !(id in $scope.isDatasetOpen)) {
+        $scope.getDatasetState = function(id) {
+            if (!(id in $scope.isDatasetOpen)) {
                 $scope.isDatasetOpen[id] = true;
             }
             return $scope.isDatasetOpen;
         };
+
+        $scope.isSectionOpen = function(id){
+            if (!(id in $scope.isopen)) {
+                $scope.isopen[id] = true;
+            }
+            return $scope.isopen;
+        }
 
         $scope.sum = function(iterable, dataElementId, catOptComboIdsForTotalling) {
             var sum = _.reduce(iterable, function(sum, currentOption, catOptComboId) {
