@@ -312,7 +312,7 @@ define(["lodash", "dataValuesMapper", "orgUnitMapper", "moment", "properties"], 
                 };
 
                 return uploadCompletion()
-                    .then(uploadApproval);
+                    //.then(uploadApproval);
             };
 
             var upsertAndPushToDhis = function() {

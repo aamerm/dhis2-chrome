@@ -3,10 +3,10 @@
     <div ng-show="selectedModule &amp;&amp; week  &amp;&amp; !errorMessage">
         <section class="panel tab-panel" ng-if="week &amp;&amp; selectedModule">
             <div ng-show="saveSuccess" class="alert alert-success">{{resourceBundle.dataSaveSuccess}}</div>
-            <div ng-show="isSubmitted &amp;&amp; !isCompleted &amp;&amp; !isApproved &amp;&amp; !submitAndApprovalSuccess" class="alert alert-success">{{resourceBundle.dataSubmittedForApproval}}</div>
-            <div ng-show="isCompleted &amp;&amp; !isApproved" class="alert alert-success">{{resourceBundle.firstLevelApproveSuccess}}</div>
-            <div ng-show="isApproved &amp;&amp; !submitAndApprovalSuccess" class="alert alert-success">{{resourceBundle.secondLevelApproveSuccess}}</div>
-            <div ng-show="submitAndApprovalSuccess" class="alert alert-success">{{resourceBundle.dataSubmitAndApproved}}</div>
+            <div ng-show="isSubmitted" class="alert alert-success">{{resourceBundle.dataSubmitSuccess}}</div>
+            <!--<div ng-show="isCompleted &amp;&amp; !isApproved" class="alert alert-success">{{resourceBundle.firstLevelApproveSuccess}}</div>-->
+            <!--<div ng-show="isApproved &amp;&amp; !submitAndApprovalSuccess" class="alert alert-success">{{resourceBundle.secondLevelApproveSuccess}}</div>-->
+            <!--<div ng-show="submitAndApprovalSuccess" class="alert alert-success">{{resourceBundle.dataSubmitAndApproved}}</div>-->
             <div ng-show="saveError" class="alert alert-danger">{{resourceBundle.dataSaveFailure}}</div>
             <div ng-show="submitError" class="alert alert-danger">{{resourceBundle.dataSubmitFailure}}</div>
             <form name="dataentryForm" id="dataentry" ng-if="hasRoles(['Data entry user', 'Observer'])">
@@ -154,7 +154,7 @@
                 </accordion>
                 <div>
                     <input type="submit" class="btn btn-main" id="dataEntrySave" ng-click="saveAsDraft()" ng-disabled="dataentryForm.$invalid" ng-if="hasRoles(['Data entry user'])" ng-hide="isSubmitted" value="{{resourceBundle.saveBtnValue}}" />
-                    <input type="submit" class="btn btn-main" id="dataEntrySubmit" ng-click="submit()" ng-if="hasRoles(['Data entry user']) &amp;&amp; !projectIsAutoApproved" value="{{resourceBundle.submitBtnValue}}" />
+                    <input type="submit" class="btn btn-main" id="dataEntrySubmit" ng-click="submitAndApprove()" ng-if="hasRoles(['Data entry user']) &amp;&amp; !projectIsAutoApproved" value="{{resourceBundle.submitBtnValue}}" />
                     <input type="submit" class="btn btn-main" id="dataEntrySubmitAndApprove" ng-click="submitAndApprove()" ng-disabled="isCurrentWeekSelected(week) || dataentryForm.$invalid || !isDataEntryAllowed" ng-if="hasRoles(['Data entry user']) &amp;&amp; projectIsAutoApproved" value="{{resourceBundle.submitBtnValue}}" />
                 </div>
             </form>
