@@ -196,17 +196,15 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
                 };
 
                 var getProgram = function(excludedDataElements) {
-                    return programRepository.getProgramForOrgUnit($scope.selectedModuleId).then(function(program) {
-                        return programRepository.get(program.id, excludedDataElements).then(function(program) {
-                            _.each(program.programStages, function(stage) {
-                                _.each(stage.programStageSections, function(section) {
-                                    _.each(section.programStageDataElements, function(sde) {
-                                        sde.dataElement.type = getType(sde.dataElement);
-                                    });
+                    return programRepository.get($routeParams.programId, excludedDataElements).then(function(program) {
+                        _.each(program.programStages, function(stage) {
+                            _.each(stage.programStageSections, function(section) {
+                                _.each(section.programStageDataElements, function(sde) {
+                                    sde.dataElement.type = getType(sde.dataElement);
                                 });
                             });
-                            $scope.program = program;
                         });
+                        $scope.program = program;
                     });
                 };
 

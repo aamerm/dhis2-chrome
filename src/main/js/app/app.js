@@ -58,15 +58,15 @@ define(["angular", "Q", "services", "directives", "dbutils", "controllers", "rep
                         templateUrl: 'templates/aggregate-data-entry.html',
                         controller: 'aggregateDataEntryController'
                     }).
-                    when('/line-list-summary/:module/:filterBy?', {
+                    when('/line-list-summary/:module/:programId/:filterBy?', {
                         templateUrl: 'templates/line-list-summary.html',
                         controller: 'lineListSummaryController'
                     }).
-                    when('/line-list-data-entry/:module/new', {
+                    when('/line-list-data-entry/:module/:programId/new', {
                         templateUrl: 'templates/line-list-data-entry.html',
                         controller: 'lineListDataEntryController'
                     }).
-                    when('/line-list-data-entry/:module/:eventId?', {
+                    when('/line-list-data-entry/:module/:programId/:eventId?', {
                         templateUrl: 'templates/line-list-data-entry.html',
                         controller: 'lineListDataEntryController'
                     }).

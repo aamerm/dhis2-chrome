@@ -41,17 +41,17 @@
                     <div class="row sub-nav">
                         <div class="col-md-8">
                             <ul class="list-inline">
-                                <li><a href="#/line-list-summary/{{selectedModuleId}}/caseNumber" ng-class="{'active': (filterBy === 'caseNumber' || filterBy === 'dateRange')}">{{resourceBundle.findCases}}</a></li>
+                                <li><a href="#/line-list-summary/{{selectedModuleId}}/{{program.id}}/caseNumber" ng-class="{'active': (filterBy === 'caseNumber' || filterBy === 'dateRange')}">{{resourceBundle.findCases}}</a></li>
                                 <li>|</li>
-                                <li><a href="#/line-list-summary/{{selectedModuleId}}/incomplete" ng-class="{'active': (filterBy === 'incomplete')}">{{resourceBundle.incompleteCases}}</a></li>
+                                <li><a href="#/line-list-summary/{{selectedModuleId}}/{{program.id}}/incomplete" ng-class="{'active': (filterBy === 'incomplete')}">{{resourceBundle.incompleteCases}}</a></li>
                                 <li>|</li>
-                                <li><a href="#/line-list-summary/{{selectedModuleId}}/readyToSubmit" ng-class="{'active': (filterBy === 'readyToSubmit')}">{{resourceBundle.casesReadyToSubmit}}</a></li>
+                                <li><a href="#/line-list-summary/{{selectedModuleId}}/{{program.id}}/readyToSubmit" ng-class="{'active': (filterBy === 'readyToSubmit')}">{{resourceBundle.casesReadyToSubmit}}</a></li>
                                 <li>|</li>
-                                <li><a href="#/line-list-summary/{{selectedModuleId}}/eventSummary" ng-class="{'active': (filterBy === 'eventSummary')}">{{resourceBundle.caseSummary}}</a></li>
+                                <li><a href="#/line-list-summary/{{selectedModuleId}}/{{program.id}}/eventSummary" ng-class="{'active': (filterBy === 'eventSummary')}">{{resourceBundle.caseSummary}}</a></li>
                             </ul>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a ng-href="#/line-list-data-entry/{{selectedModuleId}}/new?returnTo={{currentUrl}}" class="btn btn-primary">{{resourceBundle.newCaseBtnValue}}</a>
+                            <a ng-href="#/line-list-data-entry/{{selectedModuleId}}/{{program.id}}/new?returnTo={{currentUrl}}" class="btn btn-primary">{{resourceBundle.newCaseBtnValue}}</a>
                         </div>
                     </div>
                     <div>
@@ -118,7 +118,7 @@
                                                 <a href title="Complete" ng-if="event.localStatus==='NEW_DRAFT' || event.localStatus==='UPDATED_DRAFT'" class="submitted disabled-link"><span class="glyphicon glyphicon-star"></span></a>
                                             </td>
                                             <td>
-                                                <a href title="Edit" ng-href="#/line-list-data-entry/{{selectedModuleId}}/{{event.event}}?returnTo={{currentUrl}}" class="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a href title="Edit" ng-href="#/line-list-data-entry/{{selectedModuleId}}/{{program.id}}/{{event.event}}?returnTo={{currentUrl}}" class="edit"><span class="glyphicon glyphicon-edit"></span></a>
                                             </td>
                                             <td>
                                                 <a href title="Delete" ng-click="deleteEvent(event)" title="Delete" class="delete"><span class="glyphicon glyphicon-trash"></span></a>

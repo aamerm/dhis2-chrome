@@ -1,5 +1,5 @@
 define(["chromeUtils", "lodash"], function(chromeUtils, _) {
-    return function($q, $scope, $location, $rootScope, $hustle, $timeout, ngI18nResourceBundle, db, packagedDataImporter, sessionHelper, orgUnitRepository, systemSettingRepository, dhisMonitor) {
+    return function($q, $scope, $location, $rootScope, $hustle, $timeout, ngI18nResourceBundle, db, packagedDataImporter, sessionHelper, orgUnitRepository, systemSettingRepository, dhisMonitor, programRepository) {
         $scope.projects = [];
 
         $scope.getConnectedToMessage = function() {
@@ -68,16 +68,37 @@ define(["chromeUtils", "lodash"], function(chromeUtils, _) {
         };
 
         var loadUserLineListModules = function() {
-            if ($rootScope.currentUser && $rootScope.currentUser.selectedProject) {
-                return orgUnitRepository.getAllModulesInOrgUnits($rootScope.currentUser.selectedProject.id).then(function(modules) {
-                    $scope.allUserModules = _.map(modules, function(module) {
-                        return {
-                            "id": module.id,
-                            "displayName": module.parent.name + ' - ' + module.name,
-                            "isLineListService": true
-                        };
+            var getOrgUnitsOfUserAndTheirPrograms = function(user){
+                var orgUnits = _.cloneDeep(user.organisationUnits) ;
+                var promisez = _.map(orgUnits,function(orgUnit){
+                    return programRepository.getProgramsForOrgUnit([orgUnit.id]).then(
+                        function(programs){
+                            orgUnit.programs = programs;
+                            return orgUnit;
+                        }
+                    )
+                })
+                return $q.all(promisez).then(function(orgUnits){
+                    return orgUnits
+                    })
+            }
+
+            if ($rootScope.currentUser) {
+                getOrgUnitsOfUserAndTheirPrograms($rootScope.currentUser).then(function(modules){
+                    console.log(modules)
+                    $scope.allUserModules = []
+                    _.forEach(modules, function(module) {
+                        _.forEach(module.programs, function(program){
+                            $scope.allUserModules.push({
+                                "id": module.id,
+                                "programId": program.id,
+                                "displayName": module.name + " - " + program.name,
+                                "isLineListService": true
+                            })
+                        })
+
                     });
-                });
+                })
             }
         };
 
