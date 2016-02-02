@@ -12,17 +12,6 @@
                         </accordion-heading>
                         <div class="exp-coll-group" ng-repeat="programStage in program.programStages">
                             <accordion close-others="false">
-                                <ul>
-                                    <li class="form-group">
-                                        <label for="patientOrigin" class="col-sm-4 col-md-4 control-label required">{{ resourceBundle.patientOriginLabel }}</label>
-                                        <div class="col-sm-6 col-md-6">
-                                            <select ng-options="o.name for o in originOrgUnits | orderBy: 'name'" ng-model="patientOrigin.selected" name="patientOrigin" required>
-                                                <option value=""></option>
-                                            </select>
-                                            <span class="errortxt" ng-show="eventDataEntryForm.patientOrigin.$error.required &amp;&amp; eventDataEntryForm.patientOrigin.$dirty">{{ resourceBundle.patientOriginValidation}}</span>
-                                        </div>
-                                    </li>
-                                </ul>
                                 <accordion-group ng-repeat="section in programStage.programStageSections | orderBy: 'sortOrder'" is-open="true" ng-if="section.isIncluded">
                                     <accordion-heading>
                                         <span>{{ resourceBundle[section.id] || section.name}}</span>

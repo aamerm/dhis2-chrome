@@ -20,7 +20,6 @@ define(["moment", "dateUtils", "properties"], function(moment, dateUtils, proper
 
         this.run = function(message) {
             var eventIds = message.data.data;
-            console.log(eventIds,"eventIDS going up");
             return programEventRepository.getEventsForUpload(eventIds)
                 .then(uploadEventData)
                 .then(changeEventLocalStatus);

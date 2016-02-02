@@ -211,7 +211,6 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
             var publishToDhis = function() {
 
                 var deleteApprovals = function() {
-                    console.log("in delete approv");
                     return $hustle.publish({
                         "data": periodsAndOrgUnits,
                         "type": "deleteApprovals",
@@ -221,7 +220,6 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
                 };
 
                 var uploadEvents = function() {
-                    console.log("in upload eve");
                     return $hustle.publish({
                         "type": "uploadProgramEvents",
                         "data": _.pluck(submitableEvents, "event"),
@@ -231,7 +229,6 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
                 };
 
                 var uploadCompletion = function() {
-                    console.log("in upload complet");
                     return $hustle.publish({
                         "data": periodsAndOrgUnits,
                         "type": "uploadCompletionData",
@@ -241,7 +238,6 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
                 };
 
                 var uploadApproval = function() {
-                    console.log("in upload approv");
                     return $hustle.publish({
                         "data": periodsAndOrgUnits,
                         "type": "uploadApprovalData",
@@ -253,7 +249,7 @@ define(["lodash", "moment", "properties", "orgUnitMapper"], function(_, moment, 
                 return deleteApprovals()
                     .then(uploadEvents)
                     .then(uploadCompletion)
-                    .then(uploadApproval);
+                    //.then(uploadApproval);
             };
 
             var updateView = function() {

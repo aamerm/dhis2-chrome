@@ -108,7 +108,7 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
 
         $scope.update = function() {
             var dataValuesAndEventDate = getDataValuesAndEventDate();
-            $scope.event.orgUnit = $scope.patientOrigin.selected.id;
+            $scope.event.orgUnit = $scope.originOrgUnits[0];
             $scope.event.eventDate = dataValuesAndEventDate.eventDate;
             $scope.event.localStatus = dataValuesAndEventDate.compulsoryFieldsPresent ? "UPDATED_DRAFT" : "UPDATED_INCOMPLETE_DRAFT";
             $scope.event.dataValues = dataValuesAndEventDate.dataValues;
@@ -135,7 +135,7 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
                 "event": eventId,
                 "program": $scope.program.id,
                 "programStage": $scope.program.programStages[0].id,
-                "orgUnit": $scope.patientOrigin.selected.id,
+                "orgUnit": $scope.originOrgUnits[0].id,
                 "eventDate": dataValuesAndEventDate.eventDate,
                 "localStatus": dataValuesAndEventDate.compulsoryFieldsPresent ? "NEW_DRAFT" : "NEW_INCOMPLETE_DRAFT",
                 "dataValues": dataValuesAndEventDate.dataValues
@@ -169,7 +169,6 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
 
             var loadOriginOrgUnits = function() {
                 return orgUnitRepository.findAllByParent($scope.selectedModuleId).then(function(originOrgUnits) {
-                    console.log(originOrgUnits,"originorgunitsssssssssssss");
                     orgUnitRepository.get($routeParams.module).then(function(module){
                         $scope.originOrgUnits = [module];
                     })
