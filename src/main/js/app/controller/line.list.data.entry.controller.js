@@ -80,7 +80,7 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
 
             return {
                 dataValues: dataValuesList,
-                eventDate: moment().set('millisecond', 0).set('second', 0).toDate(),
+                eventDate: moment(new Date()).toISOString(),
                 compulsoryFieldsPresent: compulsoryFieldsPresent
             };
         };
@@ -108,7 +108,7 @@ define(["lodash", "moment", "dhisId", "dateUtils", "properties"], function(_, mo
 
         $scope.update = function() {
             var dataValuesAndEventDate = getDataValuesAndEventDate();
-            $scope.event.orgUnit = $scope.originOrgUnits[0];
+            $scope.event.orgUnit = $scope.originOrgUnits[0].id;
             $scope.event.eventDate = dataValuesAndEventDate.eventDate;
             $scope.event.localStatus = dataValuesAndEventDate.compulsoryFieldsPresent ? "UPDATED_DRAFT" : "UPDATED_INCOMPLETE_DRAFT";
             $scope.event.dataValues = dataValuesAndEventDate.dataValues;
