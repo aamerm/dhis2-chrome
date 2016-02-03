@@ -35,7 +35,11 @@ define(["lodash", "moment"], function(_, moment) {
         this.getProgramsForOrgUnit = function(orgUnitId) {
             var store = db.objectStore("programs");
             var query = db.queryBuilder().$in(orgUnitId).$index("by_organisationUnit").compile();
-            return store.each(query)
+            return store.each(query).then(function(programs){
+                return _.filter(programs, function(program){
+                    return program.programType == "WITHOUT_REGISTRATION"
+                })
+            })
         };
 
         this.upsert = function(payload) {
