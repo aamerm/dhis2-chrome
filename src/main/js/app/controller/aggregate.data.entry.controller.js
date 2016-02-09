@@ -325,9 +325,8 @@ define(["lodash", "dataValuesMapper", "orgUnitMapper", "moment", "properties"], 
                 "confirmationMessage": $scope.resourceBundle.reapprovalConfirmationMessage
             };
 
-            upsertAndPushToDhis();
-            //confirmAndProceed(upsertAndPushToDhis, modalMessages, !($scope.isCompleted || $scope.isApproved))
-            //    .then(successPromise, errorPromise);
+            confirmAndProceed(upsertAndPushToDhis, modalMessages, true)
+                .then(successPromise, errorPromise);
         };
 
         $scope.isCurrentWeekSelected = function(week) {
