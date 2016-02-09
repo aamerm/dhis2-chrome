@@ -30,18 +30,19 @@ define(["lodash"], function(_) {
 
         var getUserModules = function() {
             return getCurrentProjects().then(function(currentProjectIds) {
-                return orgUnitRepository.getAllModulesInOrgUnits(currentProjectIds).then(function(userModules) {
+                return orgUnitRepository.findAll(currentProjectIds).then(function(userModules) {
                     return userModules;
                 });
             });
         };
 
         var getOriginOrgUnitIds = function() {
-            return getUserModules().then(function(modules) {
-                var moduleIds = _.pluck(modules, "id");
-                return orgUnitRepository.findAllByParent(moduleIds).then(function(originOrgUnits) {
-                    return _.pluck(originOrgUnits, "id");
-                });
+            return getUserModules()
+                .then(function(modules) {
+                return _.pluck(modules, "id");
+                //return orgUnitRepository.findAllByParent(moduleIds).then(function(originOrgUnits) {
+                //    return _.pluck(originOrgUnits, "id");
+                //});
             });
         };
 
