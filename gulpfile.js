@@ -134,7 +134,7 @@ gulp.task('pack', ['less', 'config'], function() {
     return stream;
 });
 
-gulp.task('zip', ['less', 'config', 'download-metadata'], function() {
+gulp.task('zip', ['less', 'config'], function() {
     return gulp.src('./src/main/**')
         .pipe(zip("praxis_" + (argv.env || "dev") + ".zip"))
         .pipe(gulp.dest(''));
