@@ -128,7 +128,7 @@ gulp.task('download-fieldapp-settings', function() {
         .pipe(gulp.dest(path.dirname("src/main/data/systemSettings.json")));
 });
 
-gulp.task('pack', ['less', 'config'], function() {
+gulp.task('pack', ['less'], function() {
     var stream = shell(["./scripts/crxmake.sh ./src/main key.pem " + "praxis_" + (argv.env || "dev")]);
     stream.write(process.stdout);
     return stream;
